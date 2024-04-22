@@ -1,0 +1,39 @@
+/* StarRating.css */
+
+.star-rating {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.1rem;
+}
+
+.star-rating .star {
+    color: #ccc;
+}
+
+.star-rating .star:hover,
+.star-rating .star.hover {
+    color: #f39c12; /* Change color on hover */
+}
+
+.star-rating .star.filled {
+    color: #f39c12; /* Filled star color */
+}
+
+.star-rating .star.half-filled::before {
+    content: '';
+    position: absolute;
+    overflow: hidden;
+    width: 50%;
+    color: #f39c12; /* Half-filled star color */
+    display: inline-block;
+    left: 0;
+}
