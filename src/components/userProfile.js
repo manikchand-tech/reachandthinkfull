@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './UserProfile.css'; // Import your CSS file for styling
 import profilesvg from '../images/profileplaceholder.svg';
 import axios from 'axios'; // Import Axios
-
+import StarRating from './StarRating';
 import { useAuth } from './AuthContext';
 
 
@@ -56,9 +56,11 @@ const UserProfile = () => {
   };
 
 
-  return (
+  return (<>
+    
+    
     <div className={`user-profile-container ${editMode ? 'edit-mode' : ''}`}>
-      
+    {userType==='vendor'&&(<StarRating vendorId={rntId}/>)}
       <h2>Profile</h2>
       {userData && (
         <div className="main">
@@ -148,6 +150,8 @@ const UserProfile = () => {
               </div>
             )}
     </div>
+    
+   </>
   );
 };
 

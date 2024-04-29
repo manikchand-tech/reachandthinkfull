@@ -5,7 +5,7 @@ import { storage } from '../firebase/firebaseConfig';
 import { v4 as uuidv4 } from 'uuid';
 import './VendorProduct.css';
 import { useAuth } from './AuthContext';
-
+import ProductRating from './ProductRating';
 
 const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
     if (!isOpen) return null;
@@ -24,7 +24,8 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
 
 // Component to manage vendor products
 const VendorProduct = ({ vendorId }) => {
-  const {userType} =useAuth() 
+    const {rntId}=useAuth();
+    const { userType } = useAuth()
     // State for products and form inputs
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
@@ -33,7 +34,7 @@ const VendorProduct = ({ vendorId }) => {
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
     const [editingProduct, setEditingProduct] = useState(null);
-    const [showAddForm, setShowAddForm] = useState(false); 
+    const [showAddForm, setShowAddForm] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
     // Fetch products on component mount
@@ -126,7 +127,7 @@ const VendorProduct = ({ vendorId }) => {
 
             // Update the products state with the new product
             setProducts([...products, { ...response.data, imageUrl }]);
-            
+
             // Reset the form fields
             resetForm();
         } catch (error) {
@@ -206,23 +207,40 @@ const VendorProduct = ({ vendorId }) => {
 
 
 
+    const handleRatingUpdate = (newRating) => {
+        // Update the product rating in the parent component or perform any other actions
+        console.log('New rating:', newRating);
+    };
     // ProductCard component
+
     const ProductCard = ({ product }) => (
+       
         <div className="product-card">
             <img src={product.imageUrl} alt={product.name} className="product-image" />
             <div className="product-info">
                 <h3>{product.name}</h3>
                 <p>{product.description}</p>
                 <p className="product-price">Rs.{product.price}</p>
+                
                 {userType === 'vendor' && (
                     <>
                         <button onClick={() => handleEdit(product)}>Edit</button>
                         <button onClick={() => openDeleteModal(product._id)}>Delete</button>
                     </>
                 )}
+
+            { <ProductRating
+               customerId={rntId}
+                productId={product._id}
+                vendorId={vendorId}
+               
+            />}
+                
+             
             </div>
         </div>
     );
+
     const toggleAddForm = () => {
         setShowAddForm(!showAddForm);
     };
@@ -251,40 +269,40 @@ const VendorProduct = ({ vendorId }) => {
     };
 
     return (
-        
+
         <div className='vendor-product-container'>
-                   {userType === 'vendor' && (
+            {userType === 'vendor' && (
                 <button className="toggle-button" onClick={toggleAddForm}>
                     {showAddForm ? 'Hide Add Product Form' : 'Show Add Product Form'}
                 </button>
             )}
 
             {showAddForm && userType === 'vendor' && (
-            <form onSubmit={handleAddProduct}>
-                {/* Form fields for product details */}
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Product Name"
-                />
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Product Description"
-                />
-                <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Product Price"
-                />
-                <input
-                    type="file"
-                    onChange={handleImageChange}
-                />
-                <button type="submit">Add Product</button>
-            </form>
+                <form onSubmit={handleAddProduct}>
+                    {/* Form fields for product details */}
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Product Name"
+                    />
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Product Description"
+                    />
+                    <input
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder="Product Price"
+                    />
+                    <input
+                        type="file"
+                        onChange={handleImageChange}
+                    />
+                    <button type="submit">Add Product</button>
+                </form>
             )}
             <h1>Vendor Products</h1>
             {/* Display products */}
@@ -342,11 +360,11 @@ const VendorProduct = ({ vendorId }) => {
                     )}
                     <button type="submit">Update Product</button>
                     <button type="button" className="button-cancel" onClick={handleCancelUpdate}>
-                            Cancel
-                        </button>
+                        Cancel
+                    </button>
                 </form>
             )}
-             <ConfirmModal
+            <ConfirmModal
                 isOpen={isModalOpen}
                 onClose={closeDeleteModal}
                 onConfirm={confirmDelete}

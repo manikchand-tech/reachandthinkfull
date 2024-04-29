@@ -140,6 +140,11 @@ text-align: center;
 padding: 10px 0 0;
 color: #fff;
 }
+h3{
+  text-align: center;
+  padding: 10px 0 0;
+  color:gray 
+}
 /* CSS styles */
 .edit-form {
   position: relative;
@@ -155,6 +160,56 @@ color: #fff;
 
 .left-sidebar{
   padding: 2px;
-  margin-left: 20px;
+  margin-left: 10px;
   float: left;
+}
+
+
+
+
+.reviews-section {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.reviews-section h2{
+  text-align: center;
+  color: black;
+}
+
+/* AddReviewButton.css */
+
+.add-review-button {
+  margin-top: 20px;
+}
+
+.review-textarea {
+  width: 80%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.add-review-button button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-review-button button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }

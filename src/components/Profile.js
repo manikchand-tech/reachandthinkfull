@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import './Profile.css'
 import UserProfile from './userProfile';
 import VendorProduct from './VendorProduct';
+import VendorProfilePage from './VendorProfilPage';
+import StarRating from './StarRating';
 
 const Profile = () => {
   const { isLoggedIn, userType, rntId } = useAuth();
@@ -15,7 +17,8 @@ const Profile = () => {
         <>
           <div className="container">
            
-            <div className="user-profile-container">
+            <div className="user-profile-container-outer">
+           
               <UserProfile />
             </div>
             {userType === 'vendor' && (

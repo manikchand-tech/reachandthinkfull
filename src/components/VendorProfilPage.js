@@ -6,15 +6,13 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import VendorProduct from './VendorProduct';
 import StarRating from './StarRating';
+import VendorReviewPage from './VendorReview';
 const VendorProfilePage = () => {
     const {rntId}=useAuth();
+    const {userType}=useAuth();
     
-    const [rating, setRating] = useState(0);
     const { id } = useParams();
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-        // You can also send the new rating to your backend or perform other actions here
-      };
+    
     // const { rntId } = useAuth();
     // const { userType } = useAuth();
      const [userData, setUserData] = useState(null);
@@ -28,24 +26,7 @@ const VendorProfilePage = () => {
     }, [id]); // Add loginEndpoint as a dependency to useEffect
 
    
-    // const handleProfileUpdate = (event) => {
-    //     const updatEndpoint = userType === 'customer' ? `customers/update/${rntId}` : `vendors/update/${rntId}`;
-    //     event.preventDefault();
-    //     axios.put(`http://localhost:3000/${updatEndpoint}`, userData)
-    //         .then(response => {
-    //             setUserData(response.data);
-    //             setEditMode(false); // Exit edit mode after successful update
-    //         })
-    //         .catch(error => console.error('Error updating profile:', error));
-    // };
-
-    // const handleCancel = () => {
-    //     setUserData(initialUserData); // Restore initial data
-    //     setEditMode(false);
-    // };
-    // const toggleEditMode = () => {
-    //     setEditMode(!editMode);
-    // };
+   
 
     const renderBusinessAddress = (address) => {
         return (
@@ -64,11 +45,21 @@ const VendorProfilePage = () => {
     };
 
 
-    return (<>
-    <div className="left-sidebar">
-                <h2>Rate this vendor:</h2>
-               <StarRating vendorId={id} customerId={rntId} />
+    return (
+   <>
+            <div className="left-sidebar reviews-section">
+       {userType==='customer' &&(
+         
+            <div><h2>Rate and Review</h2>  
+             <h3>Rate this vendor:</h3>  
+             <StarRating vendorId={id} customerId={rntId}  />  
+             
+             </div>
+        )}
+                
+             
             </div>
+    
         <div className={`user-profile-container`}>
   
             <h2>Profile</h2>
@@ -122,15 +113,19 @@ const VendorProfilePage = () => {
 
 
                     </div>
-
+                   
 
 
                 </div>
+               
 
             )}
            
            <div className='vendorproduct'><VendorProduct vendorId={id}/></div>
-        </div></>
+        </div>
+        
+        
+        </>
       
     );
 };
