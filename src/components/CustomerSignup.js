@@ -84,7 +84,7 @@ const CustomerSignup = () => {
 
     return (
         <div className="auth-container">
-            <h2>Customer Sign Up</h2>
+            <h2 style={{color:'black'}}>Customer Sign Up</h2>
             {alertMessage && <p className="alert">{alertMessage}</p>}
             <form onSubmit={handleSubmit} className="auth-form">
                 <label>Name:</label>

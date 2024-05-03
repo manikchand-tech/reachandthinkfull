@@ -13,6 +13,8 @@ import CustomerSignup from './components/CustomerSignup.js';
 import { AuthProvider } from './components/AuthContext.js';
 import ImageUpload from './components/imageUpload.jsx';
 import VendorProfilePage from './components/VendorProfilPage.js';
+import Reviews from './components/Reviews.jsx';
+import ReviewPage from './components/ReviewPage.jsx';
 const App = () => {
     return (<>
 
@@ -30,6 +32,8 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                    <Route path='/imageupload' element={<ImageUpload/>}/>
                    <Route path="/vendor-profile/:id" element={<VendorProfilePage/>} />
+                   <Route exact path="/reviews" element={<Reviews/>} />
+                <Route path="/reviews/vendors/:vendorId/ratings/:ratingId/customer/:customerId" element={<ReviewPage/>} />
                 </Routes>
 
             </Router>

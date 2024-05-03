@@ -7,6 +7,7 @@ import { useAuth } from './AuthContext';
 import VendorProduct from './VendorProduct';
 import StarRating from './StarRating';
 import VendorReviewPage from './VendorReview';
+import Reviews from './Reviews';
 const VendorProfilePage = () => {
     const {rntId}=useAuth();
     const {userType}=useAuth();
@@ -48,12 +49,12 @@ const VendorProfilePage = () => {
     return (
    <>
             <div className="left-sidebar reviews-section">
-       {userType==='customer' &&(
-         
+       {userType==='customer' &&  (
+           
             <div><h2>Rate and Review</h2>  
              <h3>Rate this vendor:</h3>  
              <StarRating vendorId={id} customerId={rntId}  />  
-             
+            
              </div>
         )}
                 

@@ -5,6 +5,7 @@ import axios from 'axios';
 import './StarRating.css'; // Make sure to create a corresponding CSS file
 import { useAuth } from './AuthContext';
 import VendorReviewPage from './VendorReview';
+import Reviews from './Reviews';
 const StarRating = ({ vendorId, customerId, maxStars = 5,}) => {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
@@ -33,7 +34,7 @@ const {userType}=useAuth()
                 setUserRating(response.data.rating);
                 const ratingIdIn=response.data.ratingId;
                 setRatingId(ratingIdIn)
-              // console.log(ratingIdin)
+              
 
                 
             })
@@ -66,7 +67,9 @@ setAverageRating((formattedRating));
     };
     
     return (
+       
         <div className="star-rating ">
+             
             {[...Array(maxStars)].map((star, index) => {
                 const ratingValue = index + 1;
                 const isHalf = (hover % 1 !== 0 && ratingValue === Math.ceil(hover));
@@ -100,9 +103,12 @@ setAverageRating((formattedRating));
             <p>The average rating is: {averageRating}
            </p>
             {userRating !== null && <p>Your rating: {userRating}</p>}
-<VendorReviewPage vendorId={vendorId} customerId={customerId} rating={ratingId} />
-            
+            {userType==='customer' && userRating !== null && <VendorReviewPage vendorId={vendorId} customerId={customerId} rating={ratingId} /> 
+ }
+
+
         </div>
+      
     );
 };
 

@@ -1,43 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// Reviews.jsx
+import React from 'react';
+import { useHistory,useNavigate } from 'react-router-dom';
+import ReviewPage from './ReviewPage';
 
-const Reviews = ({ vendorId },{ratingId}) => {
-    const [reviews, setReviews] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const Reviews = ({ vendorId, ratingId, customerId }) => {
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchReviews = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3000/reviews/vendors/${vendorId}/ratings/${ratingId}}`);
-                setReviews(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching reviews:', error);
-                setError('Error fetching reviews. Please try again.');
-                setLoading(false);
-            }
-        };
-
-        fetchReviews();
-    }, [vendorId]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    const showReviews = () => {
+        navigate(`/reviews/vendors/${vendorId}/ratings/${ratingId}/customer/${customerId}`);
+    };
 
     return (
         <div>
-            {reviews.map(review => (
-                <div key={review._id} className="review-item">
-                    <p><strong>Rating:</strong> {review.rating}</p>
-                    <p><strong>Comment:</strong> {review.comment}</p>
-                </div>
-            ))}
+            <h4>Your Review</h4>
+            <button onClick={showReviews}>Show Reviews</button>
         </div>
     );
 };

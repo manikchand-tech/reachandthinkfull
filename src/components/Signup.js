@@ -128,7 +128,7 @@ const Signup = () => {
     
     return (
         <div className="auth-container">
-            <h2>Sign Up as a Vendor</h2>
+            <h2 style={{color:'black'}}>Sign Up as a Vendor</h2>
             {alertMessage && <p className="alert">{alertMessage}</p>}
             <form onSubmit={handleSubmit} className="auth-form">
                 <label>Vendor Name:</label>

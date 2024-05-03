@@ -1,8 +1,8 @@
 // VendorReviewPage.js
 import React from 'react';
 import AddReviewButton from './AddReview';
-
-const VendorReviewPage = ({ vendorId, customerId,rating }) => {
+import Reviews from './Reviews';
+const VendorReviewPage = ({ vendorId, customerId, rating }) => {
     const handleVendorReviewSuccess = () => {
         // Handle success (e.g., show a success message)
         console.log('Vendor review submitted successfully');
@@ -10,14 +10,17 @@ const VendorReviewPage = ({ vendorId, customerId,rating }) => {
 
     return (
         <div>
+
             <h3>Vendor Review</h3>
             <AddReviewButton
                 vendorId={vendorId}
                 customerId={customerId}
-rating={rating}
-isVendorReview={true}
+                rating={rating}
+                isVendorReview={true}
                 onSuccess={handleVendorReviewSuccess}
             />
+
+            <Reviews vendorId={vendorId} ratingId={rating} customerId={customerId} />
         </div>
     );
 };

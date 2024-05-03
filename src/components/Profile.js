@@ -7,7 +7,7 @@ import UserProfile from './userProfile';
 import VendorProduct from './VendorProduct';
 import VendorProfilePage from './VendorProfilPage';
 import StarRating from './StarRating';
-
+import LogoutButton from './LogoutButton';
 const Profile = () => {
   const { isLoggedIn, userType, rntId } = useAuth();
 
@@ -16,9 +16,9 @@ const Profile = () => {
       {isLoggedIn ? (
         <>
           <div className="container">
-           
+
             <div className="user-profile-container-outer">
-           
+
               <UserProfile />
             </div>
             {userType === 'vendor' && (
@@ -26,6 +26,7 @@ const Profile = () => {
                 <VendorProduct vendorId={rntId} />
               </div>
             )}
+            <LogoutButton />
           </div>
         </>
       ) : (
